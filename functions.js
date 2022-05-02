@@ -18,7 +18,7 @@ function viewAllDep() {
     db.promise().query(sql)
         .then(([rows,fields]) => {
             console.table(rows)})
-        .then(returnToMenu())
+        .then(menuPrompt())
 }
 
 function viewAllRole() {
@@ -46,8 +46,8 @@ function viewAllEmp() {
 }
 
 function addAnEmp() {
-    const sql = `INSERT INTO candidates (first_name, last_name, industry_connected)
-    VALUES (?,?,?)`;
+    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+    VALUES (?,?,?,?)`;
     inquirer
         .prompt([{
             type: 'input',
@@ -58,9 +58,10 @@ function addAnEmp() {
             name: 'last_name',
             message: 'What is their last name?'
         },{
-            type: 'input',
+            type: 'list',
             name: 'role',
-            message: 'What is their role?'
+            message: 'What is their role?',
+            choices: ''
         },{
             type: 'input',
             name: 'manager',
